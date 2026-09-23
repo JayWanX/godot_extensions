@@ -2,6 +2,7 @@
 
 #include "core/object/class_db.h"
 
+#include "class_doc_reader/class_doc_reader.h"
 #include "collection/dict_utils.h"
 #include "file_system/dir_utils.h"
 #include "file_system/file_utils.h"
@@ -24,6 +25,7 @@ void initialize_extensions_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_abstract_class<Prefab>();
 	ClassDB::register_class<ProjectSetting>();
 	ClassDB::register_abstract_class<ProjectSettingsManager>();
+	ClassDB::register_class<ClassDocReader>();
 }
 
 void uninitialize_extensions_module(ModuleInitializationLevel p_level) {

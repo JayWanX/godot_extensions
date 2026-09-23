@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="ClassDocReader" inherits="Object" api_type="core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd">
+	<brief_description>	读取引擎解析好的类参考 / 脚本文档，供 GDScript 查询。
+	设计为可实例化的普通类：addon 先用 `ClassDB.class_exists()` 探测、再
+	`ClassDB.instantiate()` 惰性构建，这样「未编译该模块时回退本地缓存」就不会在
+	解析期引用到不存在的类名。</brief_description>
+	<description>
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="get_class_docs" qualifiers="const">
+			<return type="Dictionary" />
+			<param index="0" name="class_name" type="StringName" />
+			<description>
+				取某个类各成员（方法 / 信号 / 属性 / 常量）的文档。
+				[param class_name] 类名（原生类，或带 `class_name` 的脚本类）[br]
+				返回字典含四组键：`methods` / `signals` / `properties` / `constants`，
+				值为「成员名 → 文档文本」。原生类经 DTR 随编辑器语言翻译；脚本类返回作者原文。
+			</description>
+		</method>
+		<method name="get_script_docs" qualifiers="const">
+			<return type="Dictionary" />
+			<param index="0" name="script" type="Script" />
+			<description>
+				取某个脚本（含不带 `class_name` 的脚本）各成员的文档。
+				[param script] 脚本资源；需已被编辑器分析过，否则返回空字典[br]
+				返回体结构与 `get_class_docs` 一致，文本为作者原文（不做翻译）。
+			</description>
+		</method>
+		<method name="has_class_doc" qualifiers="const">
+			<return type="bool" />
+			<param index="0" name="class_name" type="StringName" />
+			<description>
+				该类是否存在且文档已就绪。
+			</description>
+		</method>
+	</methods>
+</class>
