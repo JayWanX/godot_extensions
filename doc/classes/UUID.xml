@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <class name="UUID" inherits="RefCounted" api_type="core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd">
-	<brief_description>	表示一个符合 UUID v4 格式的唯一标识符，基于 16 个随机字节编码为十六进制并用连字符分组。</brief_description>
+	<brief_description>
+		表示一个符合 UUID v4 格式的唯一标识符，基于 16 个随机字节编码为十六进制并用连字符分组。
+	</brief_description>
 	<description>
 	</description>
 	<tutorials>

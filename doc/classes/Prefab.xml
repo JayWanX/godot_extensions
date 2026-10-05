@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <class name="Prefab" inherits="Object" api_type="core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd">
-	<brief_description>	预制体工具类：提供将任意节点树打包为 PackedScene 的静态方法，不可实例化。
-	自动修复子节点的 owner 关系，确保打包后保留完整层级。</brief_description>
+	<brief_description>
+		预制体工具类：提供将任意节点树打包为 PackedScene 的静态方法，不可实例化。
+		自动修复子节点的 owner 关系，确保打包后保留完整层级。
+	</brief_description>
 	<description>
 	</description>
 	<tutorials>

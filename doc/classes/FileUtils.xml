@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <class name="FileUtils" inherits="Object" api_type="core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd">
-	<brief_description>	文件系统工具类：提供文件类型判定等纯静态方法，不可实例化。
-	判定基于扩展名/文件名白名单快路径，未命中时读取文件头查 NUL 字节兜底。</brief_description>
+	<brief_description>
+		文件系统工具类：提供文件类型判定等纯静态方法，不可实例化。
+		判定基于扩展名/文件名白名单快路径，未命中时读取文件头查 NUL 字节兜底。
+	</brief_description>
 	<description>
 	</description>
 	<tutorials>

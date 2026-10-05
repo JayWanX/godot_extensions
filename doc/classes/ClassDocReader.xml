@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <class name="ClassDocReader" inherits="Object" api_type="core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd">
-	<brief_description>	读取引擎解析好的类参考 / 脚本文档，供 GDScript 查询。
-	设计为可实例化的普通类：addon 先用 `ClassDB.class_exists()` 探测、再
-	`ClassDB.instantiate()` 惰性构建，这样「未编译该模块时回退本地缓存」就不会在
-	解析期引用到不存在的类名。</brief_description>
+	<brief_description>
+		读取引擎解析好的类参考 / 脚本文档，供 GDScript 查询。
+	</brief_description>
 	<description>
+		设计为可实例化的普通类：addon 先用 `ClassDB.class_exists()` 探测、再
+		`ClassDB.instantiate()` 惰性构建，这样「未编译该模块时回退本地缓存」就不会在
+		解析期引用到不存在的类名。
 	</description>
 	<tutorials>
 	</tutorials>

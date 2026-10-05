@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <class name="ProjectSetting" inherits="Resource" api_type="core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd">
-	<brief_description>	定义单个项目设置的元数据资源。</brief_description>
+	<brief_description>
+		定义单个项目设置的元数据资源。
+	</brief_description>
 	<description>
 	</description>
 	<tutorials>

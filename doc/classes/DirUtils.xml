@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <class name="DirUtils" inherits="Object" api_type="core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd">
-	<brief_description>	目录操作工具类：提供目录遍历、递归复制/删除与哈希等静态方法。</brief_description>
+	<brief_description>
+		目录操作工具类：提供目录遍历、递归复制/删除与哈希等静态方法。
+	</brief_description>
 	<description>
 	</description>
 	<tutorials>
@@ -55,7 +57,7 @@
 			<description>
 				根据条件删除文件，返回实际删除数量。
 				[param root_path] 起始目录路径
-				[param should_delete] 判断是否删除的回调，签名为 func(file_path: String, file_name: String) -> bool
+				[param should_delete] 判断是否删除的回调，签名为 func(file_path: String, file_name: String) -&gt; bool
 				实际删除的文件数量。
 			</description>
 		</method>
@@ -77,8 +79,8 @@
 			<description>
 				通用的目录树遍历，支持文件/目录回调，回调返回 false 终止遍历。
 				[param path] 起始目录路径
-				[param file_handler] 处理文件的回调，签名为 func(file_path: String, file_name: String) -> bool，返回 false 终止遍历
-				[param dir_handler] 处理目录的回调（可选），签名为 func(dir_path: String, dir_name: String) -> bool，返回 false 终止遍历
+				[param file_handler] 处理文件的回调，签名为 func(file_path: String, file_name: String) -&gt; bool，返回 false 终止遍历
+				[param dir_handler] 处理目录的回调（可选），签名为 func(dir_path: String, dir_name: String) -&gt; bool，返回 false 终止遍历
 				[param recursive] 是否递归子目录（默认为 true）
 				是否完整执行完毕（未被回调终止），true 表示完整遍历。
 			</description>

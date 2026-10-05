@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <class name="ProjectSettingsManager" inherits="Object" api_type="core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd">
-	<brief_description>	提供项目设置的批量注册、移除与读取。</brief_description>
+	<brief_description>
+		提供项目设置的批量注册、移除与读取。
+	</brief_description>
 	<description>
 	</description>
 	<tutorials>

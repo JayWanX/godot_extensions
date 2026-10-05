@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <class name="DictUtils" inherits="Object" api_type="core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd">
-	<brief_description>	字典工具类：提供字典结构相关的静态方法，不可实例化。</brief_description>
+	<brief_description>
+		字典工具类：提供字典结构相关的静态方法，不可实例化。
+	</brief_description>
 	<description>
 	</description>
 	<tutorials>
