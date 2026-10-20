@@ -44,7 +44,8 @@ public:
 	static Error copy_recursive(const String &p_src, const String &p_dst);
 	/// 递归删除目录（含所有子目录与文件）。
 	/// [param path] 要删除的目录路径
-	/// 删除成功则返回 true。
+	/// **全部删除成功才返回 true**：任一子项或目录本身删不掉即返回 false，
+	/// 失败项同时经 ERR_PRINT 报出。不静默跳过，否则「只删掉一半」会被当成成功。
 	static bool delete_directory_recursive(const String &p_path);
 	/// 获取目录树结构（字典形式）。
 	/// [param path] 要遍历的目录路径

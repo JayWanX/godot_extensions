@@ -56,7 +56,9 @@ MD5 哈希字符串，若目录无法打开则返回空字符串。
 
 **path：** 要删除的目录路径
 
-删除成功则返回 true。
+**全部删除成功才返回 true**：任一子项或目录本身删不掉即返回 false，
+
+失败项同时经 ERR_PRINT 报出。不静默跳过，否则「只删掉一半」会被当成成功。
 
 ### [int](https://docs.godotengine.org/en/stable/classes/class_int.html)<span id="i_delete_files_if"></span> **delete_files_if**( [String](https://docs.godotengine.org/en/stable/classes/class_string.html) root_path, [Callable](https://docs.godotengine.org/en/stable/classes/class_callable.html) should_delete ) 
 
@@ -90,4 +92,4 @@ MD5 哈希字符串，若目录无法打开则返回空字符串。
 
 是否完整执行完毕（未被回调终止），true 表示完整遍历。
 
-_生成于 2026-10-05_
+_生成于 2026-10-20_

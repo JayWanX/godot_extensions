@@ -47,7 +47,8 @@
 			<description>
 				递归删除目录（含所有子目录与文件）。
 				[param path] 要删除的目录路径
-				删除成功则返回 true。
+				**全部删除成功才返回 true**：任一子项或目录本身删不掉即返回 false，
+				失败项同时经 ERR_PRINT 报出。不静默跳过，否则「只删掉一半」会被当成成功。
 			</description>
 		</method>
 		<method name="delete_files_if" qualifiers="static">

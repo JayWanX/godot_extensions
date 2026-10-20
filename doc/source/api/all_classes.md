@@ -5,6 +5,7 @@
     - [DictUtils](DictUtils.md)
     - [DirUtils](DirUtils.md)
     - [FileUtils](FileUtils.md)
+    - [JsonSchemaValidator](JsonSchemaValidator.md)
     - Node
         - Node3D
             - RigidBody3D

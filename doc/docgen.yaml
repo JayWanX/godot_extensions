@@ -9,7 +9,8 @@ engine_bin_path: "D:/Code/Godot/sources_stable/godot-4.7.2-stable/bin"
 classes_dir: "doc/classes"
 
 # 注入注释的源文件 glob，多个用英文逗号分隔（相对 project_root）
-headers: "**/*.h"
+# 源码在 `src/` 下（见 SCsub 的目录约定）。
+headers: "src/**/*.h"
 
 # Markdown API 输出目录（相对 project_root）
 md_dir: "doc/source/api"

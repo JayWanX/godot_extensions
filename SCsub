@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 
-# SCons 构建入口：把本模块所有子目录下的源文件登记进 Godot 构建系统。
+# SCons 构建入口：把本模块所有源文件登记进 Godot 构建系统。
+#
+# **目录约定**：`register_types.*` / `SCsub` / `config.py` 留在模块根（引擎识别模块
+# 要求这三者同在模块目录内），其余 `.cpp` / `.h` 统一放在 `src/` 下。
+#
 # 注：Import / env / env_modules 均为 SCons 运行时注入的全局，整文件静默该误报。
 # pyright: reportUndefinedVariable = none
 
@@ -10,7 +14,11 @@ Import("env_modules")
 # 克隆一份模块专用环境，避免污染共用环境配置。
 env_ext_tools = env_modules.Clone()
 
+# 头文件搜索路径：源码在 `src/<子目录>/` 下，以 `<子目录>/<文件>.h` 的形式引用，
+# 故把 `src/` 加入 include 路径。
+env_ext_tools.Prepend(CPPPATH=["src"])
+
 # 根目录源文件需单独登记：SCons 的 `**/*.cpp` 不包含根目录下的文件。
 env_ext_tools.add_source_files(env.modules_sources, "*.cpp")
-# 递归编译本模块子目录下的所有 .cpp 源文件。
-env_ext_tools.add_source_files(env.modules_sources, "**/*.cpp")
+# 递归编译 `src/` 下的所有 .cpp 源文件。
+env_ext_tools.add_source_files(env.modules_sources, "src/**/*.cpp")

@@ -113,6 +113,13 @@ void DirUtils::_collect_files_recursive(const String &p_base_path, const String 
 	dir->list_dir_begin();
 	String entry = dir->get_next();
 	while (!entry.is_empty()) {
+		// `.` 与 `..` 必须跳过：它们是当前目录与父目录的别名，`current_is_dir()`
+		// 对二者均为真，被当成子目录递归进去即无限递归（实测在仅含一个文件的
+		// 目录上就会卡死）。本文件其余四个遍历函数都有这道过滤，此处曾遗漏。
+		if (entry == "." || entry == "..") {
+			entry = dir->get_next();
+			continue;
+		}
 		if (dir->current_is_dir()) {
 			const String entry_rel = p_relative_prefix.is_empty()
 					? entry
@@ -179,21 +186,28 @@ bool DirUtils::delete_directory_recursive(const String &p_path) {
 		return false;
 	}
 
+	bool all_removed = true;
 	dir->list_dir_begin();
 	String item = dir->get_next();
 	while (!item.is_empty()) {
 		if (item != "." && item != "..") {
 			const String full_path = p_path.path_join(item);
 			if (dir->current_is_dir()) {
-				delete_directory_recursive(full_path);
-			} else {
-				DirAccess::remove_absolute(full_path);
+				// 子目录的失败必须累计：忽略它会让「目录树只删掉了一半」也报成功。
+				if (!delete_directory_recursive(full_path)) {
+					all_removed = false;
+				}
+			} else if (DirAccess::remove_absolute(full_path) != OK) {
+				// 与 delete_files_if 同口径：删不掉就报出来，不静默跳过。
+				ERR_PRINT("删除失败: " + full_path);
+				all_removed = false;
 			}
 		}
 		item = dir->get_next();
 	}
 	dir->list_dir_end();
-	return DirAccess::remove_absolute(p_path) == OK;
+	// 父目录本身删不掉同样是失败；与子项的失败合并成一个结论。
+	return DirAccess::remove_absolute(p_path) == OK && all_removed;
 }
 
 Dictionary DirUtils::get_directory_tree(const String &p_path) {

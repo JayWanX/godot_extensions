@@ -15,7 +15,8 @@ def get_doc_classes():
         "Prefab",
         "ProjectSetting",
         "ProjectSettingsManager",
-        "ClassDocReader"
+        "ClassDocReader",
+        "JsonSchemaValidator"
     ]
 
 

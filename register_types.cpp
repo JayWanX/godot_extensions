@@ -6,6 +6,7 @@
 #include "collection/dict_utils.h"
 #include "file_system/dir_utils.h"
 #include "file_system/file_utils.h"
+#include "json_schema/json_schema_validator.h"
 #include "prefab/prefab.h"
 #include "project_settings_manager/project_setting.h"
 #include "project_settings_manager/project_settings_manager.h"
@@ -26,6 +27,8 @@ void initialize_extensions_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<ProjectSetting>();
 	ClassDB::register_abstract_class<ProjectSettingsManager>();
 	ClassDB::register_class<ClassDocReader>();
+	// 通用 JSON Schema 校验器：只暴露静态方法，声明为抽象类禁止实例化。
+	ClassDB::register_abstract_class<JsonSchemaValidator>();
 }
 
 void uninitialize_extensions_module(ModuleInitializationLevel p_level) {
