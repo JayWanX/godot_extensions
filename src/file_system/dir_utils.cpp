@@ -5,6 +5,13 @@
 #include "core/object/class_db.h"
 #include "core/string/ustring.h"
 
+#if defined(WINDOWS_ENABLED)
+#include <windows.h>
+#elif defined(UNIX_ENABLED)
+#include <errno.h>
+#include <unistd.h>
+#endif
+
 void DirUtils::_bind_methods() {
 	ClassDB::bind_static_method("DirUtils",
 			D_METHOD("compute_dir_hash", "path", "extensions"),
@@ -27,6 +34,9 @@ void DirUtils::_bind_methods() {
 	ClassDB::bind_static_method("DirUtils",
 			D_METHOD("delete_files_if", "root_path", "should_delete"),
 			&DirUtils::delete_files_if);
+	ClassDB::bind_static_method("DirUtils",
+			D_METHOD("create_hard_link", "source", "target"),
+			&DirUtils::create_hard_link);
 }
 
 String DirUtils::_hash_joined_lines(Vector<String> &r_file_list) {
@@ -327,4 +337,42 @@ int DirUtils::delete_files_if(const String &p_root_path, const Callable &p_shoul
 	int count = 0;
 	_delete_files_if_recursive(p_root_path, p_should_delete, count);
 	return count;
+}
+
+Error DirUtils::create_hard_link(const String &p_source, const String &p_target) {
+	if (p_source.is_empty() || p_target.is_empty()) {
+		ERR_PRINT("create_hard_link: 源或目标路径为空");
+		return ERR_INVALID_PARAMETER;
+	}
+	if (!FileAccess::exists(p_source)) {
+		ERR_PRINT("create_hard_link: 源文件不存在: " + p_source);
+		return ERR_FILE_NOT_FOUND;
+	}
+	if (FileAccess::exists(p_target)) {
+		ERR_PRINT("create_hard_link: 目标已存在: " + p_target);
+		return ERR_ALREADY_EXISTS;
+	}
+
+#if defined(WINDOWS_ENABLED)
+	// 引擎的 DirAccess::create_link 走 CreateSymbolicLinkW，建的是符号链接：
+	// 未开开发者模式的机器上直接失败，且删掉源文件后链接全失效。
+	// 硬链接无这两个限制，故此处直接调 Win32。
+	if (CreateHardLinkW((LPCWSTR)p_target.utf16().get_data(),
+				(LPCWSTR)p_source.utf16().get_data(), nullptr) == 0) {
+		ERR_PRINT(vformat("create_hard_link: 创建失败（错误码 %d）：%s -> %s",
+				(int)GetLastError(), p_source, p_target));
+		return FAILED;
+	}
+	return OK;
+#elif defined(UNIX_ENABLED)
+	if (link(p_source.utf8().get_data(), p_target.utf8().get_data()) != 0) {
+		ERR_PRINT(vformat("create_hard_link: 创建失败（errno %d）：%s -> %s",
+				errno, p_source, p_target));
+		return FAILED;
+	}
+	return OK;
+#else
+	ERR_PRINT("create_hard_link: 当前平台不支持");
+	return ERR_UNAVAILABLE;
+#endif
 }

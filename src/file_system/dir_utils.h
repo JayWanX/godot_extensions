@@ -64,4 +64,13 @@ public:
 	/// [param should_delete] 判断是否删除的回调，签名为 func(file_path: String, file_name: String) -> bool
 	/// 实际删除的文件数量。
 	static int delete_files_if(const String &p_root_path, const Callable &p_should_delete);
+	/// 为已有文件创建一个硬链接（同一份数据的另一个目录项）。
+	/// **与 DirAccess.create_link 的区别**：后者建的是符号链接——未开开发者模式的
+	/// Windows 上直接失败，且删掉源文件后链接失效；硬链接无这两个限制，删源后
+	/// 目标仍可读。tar 包里「同内容的多个文件名」正是硬链接，重建时必须用本方法。
+	/// [param source] 已存在的源文件路径。
+	/// [param target] 要创建的链接路径，必须不存在。
+	/// 错误码：OK 成功；ERR_INVALID_PARAMETER 路径为空；ERR_FILE_NOT_FOUND 源不存在；
+	/// ERR_ALREADY_EXISTS 目标已存在；FAILED 系统调用失败；ERR_UNAVAILABLE 平台不支持。
+	static Error create_hard_link(const String &p_source, const String &p_target);
 };
